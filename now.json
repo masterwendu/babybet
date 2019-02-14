@@ -5,6 +5,7 @@
     "src": "next.config.js",
     "use": "@now/next"
   }],
+  "alias": ["babybet.de", "www.babybet.de"],
   "env": {
     "MONGO_PASSWORD": "@babybet-mongodb-password",
     "MONGO_USER": "@babybet-mongodb-user",

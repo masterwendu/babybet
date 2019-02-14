@@ -1,6 +1,10 @@
 {
   "name": "babybet",
   "version": 1,
+  "builds": [{
+    "src": "next.config.js",
+    "use": "@now/next"
+  }],
   "env": {
     "MONGO_PASSWORD": "@babybet-mongodb-password",
     "MONGO_USER": "@babybet-mongodb-user",

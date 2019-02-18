@@ -12,11 +12,9 @@ const jsonParser = bodyParser.json()
 const initDb = async () => {
   // TODO move this to an ENV variable
   try {
-    const connectionString = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_SERVER}:${process.env.MONGO_PORT}/?ssl=true&replicaSet=globaldb`
+    const connectionString = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_SERVER}/${process.env.MONGO_DB_NAME}/?ssl=true&retryWrites=true`
 
     const client = await mongoClient.connect(connectionString, { useNewUrlParser: true })
-    console.log('da')
-    console.log(client)
     const db = client.db(process.env.MONGO_DB_NAME);
     const collection = db.collection('bets');
     return { collection, client }
@@ -37,13 +35,7 @@ app.prepare()
       betOptions,
       betAmount,
     } = req.body
-    try {
-      const { collection, client } = await initDb()
-    } catch (e) {
-      console.log(e)
-      next(e)
-    }
-
+    const { collection, client } = await initDb()
 
     const _id = shortid.generate()
     const adminId = shortid.generate()
@@ -68,7 +60,6 @@ app.prepare()
   })
 
   server.get('/api/betinfo/:id', async (req, res) => {
-    console.log('da')
     const { id } = req.params
 
     const { collection, client } = await initDb()
@@ -85,8 +76,29 @@ app.prepare()
   })
 
   server.get('/b/:id', async (req, res) => {
+    const { params: { id } } = req
+
+    let queryParams = {
+      id,
+    }
+
+    if (id) {
+      const { collection, client } = await initDb()
+      const [bet] = await collection.find({ _id: id }).limit(1).toArray()
+      client.close()
+      if (bet) {
+        queryParams = {
+          ...queryParams,
+          name: bet.name,
+          plannedBirthDate: bet.plannedBirthDate,
+          betOptions: bet.betOptions,
+          betAmount: bet.betAmount,
+          numberOfBets: bet.bets.length,
+        }
+      }
+    }
+
     const actualPage = '/b'
-    const queryParams = { betId: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })
 

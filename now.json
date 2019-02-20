@@ -2,7 +2,7 @@
   "name": "babybet",
   "version": 2,
   "builds": [{
-    "src": "next.config.js",
+    "src": "app/next.config.js",
     "use": "@now/next"
   }],
   "alias": ["babybet.de"],

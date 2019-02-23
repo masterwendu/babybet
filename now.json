@@ -1,10 +1,23 @@
 {
   "name": "babybet",
   "version": 2,
-  "builds": [{
-    "src": "app/next.config.js",
-    "use": "@now/next"
-  }],
+  "builds": [
+    {
+      "src": "app/next.config.js",
+      "use": "@now/next"
+    },
+    {
+      "src": "api/index.js",
+      "use": "@now/node"
+    },
+    { "src": "robots.txt", "use": "@now/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/index.js" },
+    { "src": "robots.txt", "dest": "robots.txt" },
+    { "src": "/b/(?<id>[^/]+)$", "dest": "/app/b?id=$id" },
+    { "src": "/(.*)", "dest": "/app/$1" }
+  ],
   "alias": ["babybet.de"],
   "env": {
     "MONGO_PASSWORD": "@babybet-mongodb-password",

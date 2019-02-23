@@ -1,11 +1,11 @@
 import React from 'react'
+import moment from 'moment'
 
 export default class NewBet extends React.Component {
   state = {
     fields: {
-      parent1: 'Wendelin',
-      parent2: 'Peleska',
-      plannedBirthDate: '17.05.2019',
+      name: '',
+      plannedBirthDate: moment().add(3, 'months').format('YYYY-MM-DD'),
       betOptions: {
         sex: true,
         birthday: false,
@@ -13,10 +13,11 @@ export default class NewBet extends React.Component {
         size: false,
       },
       betAmount: '1',
-    }
+    },
   }
 
   changeField = (field) => ({ target: { value } }) => this.setState(({ fields }) => ({ fields: { ...fields, [field]: value } }))
+
   changeBetOptionField = (field) => ({ target: { checked } }) => this.setState(({ fields }) => {
     const { betOptions } = fields
     return {
@@ -32,21 +33,21 @@ export default class NewBet extends React.Component {
 
   validateFields = () => {
     const {
-      parent1,
-      parent2,
-      plannedBirthDate,
-      betOptions: {
-        sex,
-        birthday,
-        weight,
-        size,
+      fields: {
+        name,
+        plannedBirthDate,
+        betOptions: {
+          sex,
+          birthday,
+          weight,
+          size,
+        },
+        betAmount,
       },
-      betAmount,
-    } = this.state.fields
+    } = this.state
 
     if (
-      !parent1 ||
-      !parent2 ||
+      !name ||
       !plannedBirthDate ||
       !betAmount ||
       !(sex || birthday || weight || size)
@@ -64,13 +65,15 @@ export default class NewBet extends React.Component {
         loading: true,
       }, async () => {
         try {
-          const response = await fetch('/api/newbet', {
+          const { fields } = this.state
+
+          const response = await fetch('/api/bet', {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state.fields)
+            body: JSON.stringify(fields),
           })
 
           const created = await response.json()
@@ -79,8 +82,8 @@ export default class NewBet extends React.Component {
             loading: false,
             created,
           })
-        } catch (e) {
-          console.error(e)
+        } catch (error) {
+          console.error(error) // eslint-disable-line no-console
           this.setState({
             loading: false,
           })
@@ -93,73 +96,84 @@ export default class NewBet extends React.Component {
     const {
       loading,
       created,
+      fields: {
+        name,
+        plannedBirthDate,
+        betOptions: {
+          sex,
+          birthday,
+          weight,
+          size,
+        },
+        betAmount,
+      },
     } = this.state
 
     return (
       <div>
         <h1>Babybet -  neue Wette</h1>
-        {!loading && !created &&
+        {!loading && !created && (
           <div>
             <p>Neue Wette erstellen</p>
 
             <form onSubmit={this.submit}>
               <div>
                 <h4>Namen der Eltern</h4>
-                <label>
-                  Elternteil 1
+                <label htmlFor="inputName">
+                  Name der Wette:
                   <br />
-                  <input onChange={this.changeField('parent1')} value={this.state.fields.parent1} type="text" />
-                </label>
-                <br/>
-                <label>
-                  Elternteil 2
-                  <br />
-                  <input onChange={this.changeField('parent2')} value={this.state.fields.parent2} type="text" />
+                  <input
+                    name="inputName"
+                    placeholder="Baby von Brangelina"
+                    onChange={this.changeField('name')}
+                    value={name}
+                    type="text"
+                  />
                 </label>
               </div>
               <br />
               <div>
-                <label>
+                <label htmlFor="inputPlannedBirthDate">
                   Geburtstermin
                   <br />
-                  <input onChange={this.changeField('plannedBirthDate')} value={this.state.fields.plannedBirthDate} type="date" />
+                  <input name="inputPlannedBirthDate" onChange={this.changeField('plannedBirthDate')} value={plannedBirthDate} type="date" />
                 </label>
               </div>
               <br />
               <div>
-                <label>
+                <label htmlFor="inputSex">
                   Geschlecht
                   <span>&nbsp;</span>
-                  <input onChange={this.changeBetOptionField('sex')} checked={this.state.fields.betOptions.sex} type="checkbox" />
+                  <input name="inputSex" onChange={this.changeBetOptionField('sex')} checked={sex} type="checkbox" />
                 </label>
               </div>
               <div>
-                <label>
+                <label htmlFor="inputPBirthday">
                   Geburtstag
                   <span>&nbsp;</span>
-                  <input onChange={this.changeBetOptionField('birthday')} checked={this.state.fields.betOptions.birthday} type="checkbox" />
+                  <input name="inputPBirthday" onChange={this.changeBetOptionField('birthday')} checked={birthday} type="checkbox" />
                 </label>
               </div>
               <div>
-                <label>
+                <label htmlFor="inputWeight">
                   Gewicht [g]
                   <span>&nbsp;</span>
-                  <input onChange={this.changeBetOptionField('weight')} checked={this.state.fields.betOptions.weight} type="checkbox" />
+                  <input name="inputWeight" onChange={this.changeBetOptionField('weight')} checked={weight} type="checkbox" />
                 </label>
               </div>
               <div>
-                <label>
+                <label htmlFor="inputSize">
                   Größe [cm]
                   <span>&nbsp;</span>
-                  <input onChange={this.changeBetOptionField('size')} checked={this.state.fields.betOptions.size} type="checkbox" />
+                  <input name="inputSize" onChange={this.changeBetOptionField('size')} checked={size} type="checkbox" />
                 </label>
               </div>
               <br />
               <div>
-                <label>
+                <label htmlFor="inputBetAmount">
                   Wetteinsatz [€]
                   <br />
-                  <input onChange={this.changeField('betAmount')} value={this.state.fields.betAmount} type="number" />
+                  <input name="inputBetAmount" onChange={this.changeField('betAmount')} value={betAmount} type="number" />
                 </label>
               </div>
               <br />
@@ -168,15 +182,15 @@ export default class NewBet extends React.Component {
               </div>
             </form>
           </div>
-        }
-        {loading &&
+        )}
+        {loading && (
           <div>
             Babybet wird erstellt...
             <br />
             Bitte warten...
           </div>
-        }
-        {created &&
+        )}
+        {created && (
           <div>
             Babybet wurde erfolgreich erstellt
             <br />
@@ -188,7 +202,7 @@ export default class NewBet extends React.Component {
             <span>&nbsp;</span>
             <input type="text" readOnly defaultValue={`${window.location.host}/c/${created.adminId}`} />
           </div>
-        }
+        )}
       </div>
     )
   }

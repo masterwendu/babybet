@@ -1,0 +1,23 @@
+{
+  "name": "babybet-api",
+  "version": "1.0.0",
+  "author": "Wendelin Peleska",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "eslint index.js database.js logic/**/*.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13",
+    "shortid": "^2.2.14",
+    "body-parser": "^1.18.3"
+  },
+  "devDependencies": {
+    "eslint": "5.12.1",
+    "babel-eslint": "10.0.1",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-import-resolver-webpack": "0.11.0"
+  }
+}

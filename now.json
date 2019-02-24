@@ -16,6 +16,7 @@
     { "src": "/api/(.*)", "dest": "api/index.js" },
     { "src": "robots.txt", "dest": "robots.txt" },
     { "src": "/b/(?<id>[^/]+)$", "dest": "/app/b?id=$id" },
+    { "src": "/ba/(?<id>[^/]+)$", "dest": "/app/ba?id=$id" },
     { "src": "/(.*)", "dest": "/app/$1" }
   ],
   "alias": ["babybet.de"],

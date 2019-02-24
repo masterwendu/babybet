@@ -3,8 +3,8 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 import uuid from 'uuid/v4'
 import { isValid } from 'shortid'
-
 import { withRouter } from 'next/router'
+import PageWrapper from '../components/Page'
 
 let protocol = 'https://'
 
@@ -179,6 +179,10 @@ class Page extends React.Component {
         betAmount,
         numberOfBets,
         betOptions = {},
+        result,
+        closed,
+        winners,
+        winnersAmount,
       },
     } = this.state
 
@@ -193,7 +197,7 @@ class Page extends React.Component {
     const dataMissing = !name
 
     return (
-      <div>
+      <PageWrapper>
         {invalidId &&
           <h1>Bitte füge eine gültige ID zur URL hinzu.</h1>
         }
@@ -203,23 +207,81 @@ class Page extends React.Component {
         {!invalidId && !dataMissing && (
           <>
             <h1>{name}</h1>
-            <h2>Infos</h2>
-            <ul>
-              <li>
-                <span>Geburtstermin:</span>
-                {plannedBirthDate}
-              </li>
-              <li>
-                <span>Wetteinsatz:</span>
-                {betAmount}
-                {' '}
-                <span>Euro</span>
-              </li>
-              <li>
-                <span>Teilnehmer:</span>
-                {numberOfBets}
-              </li>
-            </ul>
+            {!closed && (
+              <div>
+                <h2>Infos</h2>
+                <ul>
+                  <li>
+                    <span>Geburtstermin:&nbsp;</span>
+                    {plannedBirthDate}
+                  </li>
+                  <li>
+                    <span>Wetteinsatz:&nbsp;</span>
+                    {betAmount}
+                    <span>&nbsp;Euro</span>
+                  </li>
+                  <li>
+                    <span>Teilnehmer:&nbsp;</span>
+                    {numberOfBets}
+                  </li>
+                </ul>
+              </div>
+            )}
+            {closed && (
+              <div>
+                <h2>Die Wette ist zu Ende. Wettergebnisse:</h2>
+                <ul>
+                  {betOptions.birthday && (
+                    <li>
+                      <span>Geburtstag:&nbsp;</span>
+                      {result.birthday}
+                    </li>
+                  )}
+                  {betOptions.size && (
+                    <li>
+                      <span>Größe:&nbsp;</span>
+                      {result.size}
+                      <span>&nbsp;cm</span>
+                    </li>
+                  )}
+                  {betOptions.weight && (
+                    <li>
+                      <span>Gewicht:&nbsp;</span>
+                      {result.weight}
+                      <span>&nbsp;g</span>
+                    </li>
+                  )}
+                  {betOptions.sex && (
+                    <li>
+                      <span>Es ist ein&nbsp;</span>
+                      <b>{result.sex === 'girl' ? 'Bub' : 'Mädchen'}</b>
+                    </li>
+                  )}
+                </ul>
+                {!winners.length ?
+                  <h4>Leider hat niemand gewonnen, jeder darf sein Geld behalten</h4> :
+                  (
+                    <h4>
+                      <span>Es gab </span>
+                      {winners.length}
+                      <span>&nbsp;Gewinner, welche jeweils&nbsp;</span>
+                      {winnersAmount}
+                      <span>&nbsp;Euro erhalten.</span>
+                    </h4>
+                  )
+                }
+                {!!winners.length && (
+                  <div>
+                    <h4>Gewonnen hat:</h4>
+                    <ul>
+                      {winners.map(({ name: winnerName }, k) => (
+                        <li key={`winner_${k}`}>{winnerName}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
             {betSaved && (
               <h3>
                 <span>
@@ -233,7 +295,7 @@ class Page extends React.Component {
             {saving &&
               <h4>Deine Wette wird gespeichert...</h4>
             }
-            {!betSaved && !saving && client && (
+            {!betSaved && !saving && client && !closed && (
               <form onSubmit={this.saveBet}>
                 <h2>Wetten</h2>
                 {betOptions.sex && (
@@ -308,7 +370,7 @@ class Page extends React.Component {
             )}
           </>
         )}
-      </div>
+      </PageWrapper>
     )
   }
 }

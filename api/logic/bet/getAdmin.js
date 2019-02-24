@@ -9,9 +9,10 @@ module.exports = async (req, res) => {
   const { collection, client } = await initDb()
 
   const results = await collection.find(
-    { _id: id },
+    { adminId: id },
     {
-      _id: false,
+      _id: true,
+      adminId: true,
       name: true,
       plannedBirthDate: true,
       betAmount: true,
@@ -29,8 +30,10 @@ module.exports = async (req, res) => {
     res.send({})
   } else {
     const bet = results[0]
+
     res.send({
-      id,
+      id: bet._id,
+      adminId: bet.adminId,
       name: bet.name,
       plannedBirthDate: bet.plannedBirthDate,
       betAmount: bet.betAmount,

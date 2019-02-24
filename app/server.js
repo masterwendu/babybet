@@ -12,6 +12,8 @@ app.prepare()
     if (dev) {
       const getBetLogic = require('../api/logic/bet/get') // eslint-disable-line global-require
       server.get('/api/bet/:id', getBetLogic)
+      const getAdminBetLogic = require('../api/logic/bet/getAdmin') // eslint-disable-line global-require
+      server.get('/api/bet/admin/:id', getAdminBetLogic)
       const getListForBrowserLogic = require('../api/logic/bet/getListForBrowser') // eslint-disable-line global-require
       server.get('/api/myBets/:uniqueBrowserId', getListForBrowserLogic)
 
@@ -21,6 +23,10 @@ app.prepare()
       server.post('/api/bet', jsonParser, postBetLogic)
       const patchBetLogic = require('../api/logic/bet/patch') // eslint-disable-line global-require
       server.patch('/api/bet/:id', jsonParser, patchBetLogic)
+      const patchAdminBetLogic = require('../api/logic/bet/patchAdmin') // eslint-disable-line global-require
+      server.patch('/api/bet/admin/:id', jsonParser, patchAdminBetLogic)
+      const patchAdminCloseBetLogic = require('../api/logic/bet/patchAdminClose') // eslint-disable-line global-require
+      server.patch('/api/bet/admin/close/:id', jsonParser, patchAdminCloseBetLogic)
     }
 
     server.get('/b/:id', async (req, res) => {
@@ -31,6 +37,17 @@ app.prepare()
       }
 
       const actualPage = '/b'
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get('/ba/:id', async (req, res) => {
+      const { params: { id } } = req
+
+      const queryParams = {
+        id,
+      }
+
+      const actualPage = '/ba'
       app.render(req, res, actualPage, queryParams)
     })
 

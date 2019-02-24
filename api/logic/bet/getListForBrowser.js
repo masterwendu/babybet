@@ -19,6 +19,9 @@ module.exports = async (req, res) => {
       betAmount: true,
       bets: true,
       betOptions: true,
+      closed: true,
+      winners: true,
+      winnersAmount: true,
     }
   ).toArray()
   client.close()
@@ -26,6 +29,8 @@ module.exports = async (req, res) => {
   res.send(results.map((bet) => ({
     ...bet,
     numberOfBets: bet.bets.length,
-    bets: bet.bets.filter((b) => b.uniqueBrowserId === uniqueBrowserId),
+    closed: bet.closed,
+    won: closed && winners.filter(({ uniqueBrowserId: winnerUniqueBrowserId }) => uniqueBrowserId === winnerUniqueBrowserId).length > 0,
+    winnersAmount: bet.winnersAmount,
   })))
 }

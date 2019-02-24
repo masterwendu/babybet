@@ -2,6 +2,7 @@ import React from 'react'
 import uuid from 'uuid/v4'
 import axios from 'axios'
 import Link from 'next/link'
+import PageWrapper from '../components/Page'
 
 class Page extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class Page extends React.Component {
     } = this.state
 
     return (
-      <div>
+      <PageWrapper>
         <h1>Babybet</h1>
         <p>Hallo bei Babybet</p>
         <Link href="/newbet">
@@ -55,17 +56,36 @@ class Page extends React.Component {
           {loading &&
             <h4>Deine Wetten werden geladen...</h4>
           }
-          {!loading && bets && (
+          {!loading && bets && !!bets.length && (
             <div>
               <h2>Deine Wetten: </h2>
               {bets.map((bet) => (
                 <div>
                   <h4>
                     {bet.name}
+                    {bet.closed && ' (Wette beendet)'}
                     <span>&nbsp;</span>
-                    <span>(</span>
-                    {bet.numberOfBets}
-                    <span> Wetten abgegeben)</span>
+                    {!bet.closed && (
+                      <>
+                        <span>(Wette läuft,&nbsp;</span>
+                        {bet.numberOfBets}
+                        <span>&nbsp;Wetten abgegeben)</span>
+                      </>
+                    )}
+                    {bet.closed && bet.won && (
+                      <>
+                        <h4>
+                          <span>Du hast&nbsp;</span>
+                          {bet.winnersAmount}
+                          <span>&nbsp;Euro gewonnen!</span>
+                        </h4>
+                      </>
+                    )}
+                    {bet.closed && !bet.won && (
+                      <>
+                        <h4>Du hast leider nichts gewonnen!</h4>
+                      </>
+                    )}
                   </h4>
                   <Link href={`/b/${bet._id}`}>
                     <a>Wette ansehen</a>
@@ -76,7 +96,7 @@ class Page extends React.Component {
             </div>
           )}
         </div>
-      </div>
+      </PageWrapper>
     )
   }
 }

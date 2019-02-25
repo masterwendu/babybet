@@ -178,7 +178,7 @@ export default class NewBet extends React.Component {
             <h3>Neue Wette erstellen</h3>
             <p>
               Wenn du eine Babywette erstellst bitte denke vorher gut darüber nach.
-              Frage auf jeden Fall immer beide Eltern des Kindes um Erlaubnis und vergewissere dich, dass es wirklich ok ist auf ihr Ungeborenes zu wetten.
+              Frage auf jeden Fall immer beide Eltern des Kindes um Erlaubnis und vergewissere dich, dass es wirklich ok ist, auf ihr Ungeborenes zu wetten.
             </p>
             <p>
               Eine Wette kann auch einen Wetteinsatz haben, dieser ist rein privat und den Personen welche an der Wette teilnehmen. Es gibt keinen Rechtsanspruch auf Geld und Babybet.de dient nur als Hilfsmittel für die Wette, kann aber keine Schulden eintreiben.

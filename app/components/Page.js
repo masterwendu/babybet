@@ -101,15 +101,17 @@ const Content = styled.div`
 const Page = ({ children }) => (
   <>
     <Head>
-      <title>Babybet</title>
+      <meta charSet="utf-8" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="robots" content="noindex,nofollow,noarchive" />
+      <title>Babybet</title>
     </Head>
     <Wrapper>
-      <GlobalStyle />
       <Content>
         {children}
       </Content>
+      <GlobalStyle />
     </Wrapper>
   </>
 )

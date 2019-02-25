@@ -133,10 +133,21 @@ class Page extends React.Component {
   }
 
   changeBirthday = ({ target: { value: birthday } }) => {
+    if (birthday) {
+      this.setState(({ bets }) => ({
+        bets: {
+          ...bets,
+          birthday,
+        },
+      }))
+    }
+  }
+
+  changeBabyName = ({ target: { value: babyName } }) => {
     this.setState(({ bets }) => ({
       bets: {
         ...bets,
-        birthday,
+        babyName,
       },
     }))
   }
@@ -191,6 +202,7 @@ class Page extends React.Component {
       birthday = plannedBirthDate,
       weight = 3000,
       size = 50,
+      babyName = '',
     } = bets
 
     const invalidId = (!id || !isValid(id))
@@ -255,6 +267,12 @@ class Page extends React.Component {
                     <li>
                       <span>Es ist ein&nbsp;</span>
                       <b>{result.sex === 'girl' ? 'Bub' : 'Mädchen'}</b>
+                    </li>
+                  )}
+                  {betOptions.babyName && (
+                    <li>
+                      <span>Der Name des Babies lautet:&nbsp;</span>
+                      <b>{result.babyName}</b>
                     </li>
                   )}
                 </ul>
@@ -335,6 +353,14 @@ class Page extends React.Component {
                     <h3>geboren</h3>
                   </div>
                 )}
+                {betOptions.babyName && (
+                  <div>
+                    <h3>Das Kind wird folgenden Vornamen tragen:</h3>
+                    <div>
+                      <input placeholder="Z.B.: Shiloh" type="text" value={babyName} onChange={this.changeBabyName} />
+                    </div>
+                  </div>
+                )}
                 {betOptions.weight && (
                   <div>
                     <h3>Es wird wiegen</h3>
@@ -363,7 +389,7 @@ class Page extends React.Component {
                     onChange={this.changeName}
                   />
                 </div>
-                <button type="submit" disabled={!personsName}>
+                <button type="submit" disabled={!personsName || (betOptions.babyName && !babyName)}>
                   <span>Wette abgeben</span>
                 </button>
               </form>

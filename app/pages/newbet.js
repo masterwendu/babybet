@@ -3,7 +3,6 @@ import moment from 'moment'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Copy as CopyIcon } from 'styled-icons/boxicons-solid'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.min.css'
 import PageWrapper from '../components/Page'
 
 export default class NewBet extends React.Component {
@@ -20,6 +19,14 @@ export default class NewBet extends React.Component {
       },
       betAmount: '1',
     },
+  }
+
+  constructor(props) {
+    super(props)
+
+    if (typeof window !== 'undefined') {
+      import('react-toastify/dist/ReactToastify.min.css')
+    }
   }
 
   changeField = (field) => ({ target: { value } }) => {
@@ -171,7 +178,7 @@ export default class NewBet extends React.Component {
             <h3>Neue Wette erstellen</h3>
             <p>
               Wenn du eine Babywette erstellst bitte denke vorher gut darüber nach.
-              Frage auf jeden Fall immer beide Eltern des Kindes um Erlaubnis und vergewissere dich dass es wirklich ok ist auf ihr ungeborenes zu wetten.
+              Frage auf jeden Fall immer beide Eltern des Kindes um Erlaubnis und vergewissere dich, dass es wirklich ok ist auf ihr Ungeborenes zu wetten.
             </p>
             <p>
               Eine Wette kann auch einen Wetteinsatz haben, dieser ist rein privat und den Personen welche an der Wette teilnehmen. Es gibt keinen Rechtsanspruch auf Geld und Babybet.de dient nur als Hilfsmittel für die Wette, kann aber keine Schulden eintreiben.
@@ -279,7 +286,7 @@ export default class NewBet extends React.Component {
               </button>
             </CopyToClipboard>
             <h4>Url zum Administrieren</h4>
-            <p>Nur für dich damit du die Wette beenden kannst, ändern oder löschen, bitte speichere diesen Link ab, damit du später die Wette auflösen kannst.</p>
+            <p>Nur für dich, damit du die Wette beenden kannst, ändern oder löschen, bitte speichere diesen Link ab, damit du später die Wette auflösen kannst.</p>
             <input className="copyUrlInput" type="text" readOnly defaultValue={betAdminUrl} />
             <CopyToClipboard onCopy={this.copyAdminUrl} text={betUrl}>
               <button className="copyUrlButton" type="button">

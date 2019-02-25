@@ -49,19 +49,26 @@ class Page extends React.Component {
       <PageWrapper>
         <h1>Babybet</h1>
         <p>Hallo bei Babybet</p>
-        <Link href="/newbet">
-          <a>Wette erstellen</a>
-        </Link>
         <div>
-          {loading &&
-            <h4>Deine Wetten werden geladen...</h4>
-          }
+          <Link href="/newbet">
+            <a>Wette erstellen</a>
+          </Link>
+        </div>
+        <div>
+          <Link href="/about">
+            <a>Über babybet</a>
+          </Link>
+        </div>
+        {loading && (
+          <h3>Deine Wetten werden geladen...</h3>
+        )}
+        <div>
           {!loading && bets && !!bets.length && (
             <div>
               <h2>Deine Wetten: </h2>
               {bets.map((bet) => (
                 <div>
-                  <h4>
+                  <div>
                     {bet.name}
                     {bet.closed && ' (Wette beendet)'}
                     <span>&nbsp;</span>
@@ -73,20 +80,20 @@ class Page extends React.Component {
                       </>
                     )}
                     {bet.closed && bet.won && (
-                      <>
+                      <div>
                         <h4>
                           <span>Du hast&nbsp;</span>
                           {bet.winnersAmount}
                           <span>&nbsp;Euro gewonnen!</span>
                         </h4>
-                      </>
+                      </div>
                     )}
                     {bet.closed && !bet.won && (
-                      <>
+                      <div>
                         <h4>Du hast leider nichts gewonnen!</h4>
-                      </>
+                      </div>
                     )}
-                  </h4>
+                  </div>
                   <Link href={`/b/${bet._id}`}>
                     <a>Wette ansehen</a>
                   </Link>

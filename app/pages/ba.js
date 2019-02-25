@@ -95,12 +95,14 @@ class Page extends React.Component {
   }
 
   changeBirthday = ({ target: { value: birthday } }) => {
-    this.setState(({ bets }) => ({
-      bets: {
-        ...bets,
-        birthday,
-      },
-    }))
+    if (birthday) {
+      this.setState(({ bets }) => ({
+        bets: {
+          ...bets,
+          birthday,
+        },
+      }))
+    }
   }
 
   changeWeight = ({ target: { value: weight } }) => {
@@ -108,6 +110,15 @@ class Page extends React.Component {
       bets: {
         ...bets,
         weight,
+      },
+    }))
+  }
+
+  changeBabyName = ({ target: { value: babyName } }) => {
+    this.setState(({ bets }) => ({
+      bets: {
+        ...bets,
+        babyName,
       },
     }))
   }
@@ -190,6 +201,7 @@ class Page extends React.Component {
       sex = 'girl',
       birthday = plannedBirthDate,
       weight = 3000,
+      babyName = '',
       size = 50,
     } = bets
 
@@ -199,28 +211,28 @@ class Page extends React.Component {
           <span>Admin </span>
           {serverName}
         </h2>
-        {!saving && (
+        {!saving && !betClosed && (
           <form onSubmit={this.editBet}>
             <div>
               <label htmlFor="inputName">
-                Name der Wette:
-                <br />
-                <input
-                  name="inputName"
-                  placeholder="Baby von Brangelina"
-                  onChange={this.changeName}
-                  value={name}
-                  type="text"
-                />
+                <h4>Name der Wette:</h4>
               </label>
+              <input
+                id="inputName"
+                placeholder="Baby von Brangelina"
+                onChange={this.changeName}
+                value={name}
+                type="text"
+              />
             </div>
             <div>
               <label htmlFor="inputPlannedBirthDate">
-                Geburtstermin
-                <br />
-                <input name="inputPlannedBirthDate" onChange={this.changePlannedBirthDate} value={plannedBirthDate} type="date" />
+                <h4>Geburtstermin</h4>
               </label>
+              <input id="inputPlannedBirthDate" onChange={this.changePlannedBirthDate} value={plannedBirthDate} type="date" />
             </div>
+            <br />
+            <br />
             <div>
               <button
                 type="submit"
@@ -236,78 +248,85 @@ class Page extends React.Component {
         }
         {betClosed && (
           <div>
-            <h3>Herzlichen Gl�ckwunsch! Die Wette ist beendet.</h3>
+            <h3>Herzlichen Glückwunsch! Die Wette ist beendet.</h3>
             <Link href={`/b/${betId}`}>
-              <a>Klicke hier f�r die Ergebnisse</a>
+              <a>Klicke hier für die Ergebnisse</a>
             </Link>
           </div>
         )}
         {!betClosed && (
           <div>
-            <h3>Wette beenden und aufl�sen</h3>
+            <h3>Wette beenden und auflösen</h3>
             {closeBetSaving &&
               <h4>Wette wird beendet...</h4>
             }
             {!closeBetSaving && (
               <form onSubmit={this.closeBet}>
-                <h2>Wetten</h2>
                 {betOptions.sex && (
                   <div>
-                    <h3>Es ist ein</h3>
+                    <h4>Es ist ein</h4>
                     <div>
                       <input
                         type="radio"
                         name="sexRadioButton"
                         value="girl"
+                        id="girlRadio"
                         onChange={this.changeSex}
                         checked={sex === 'girl'}
                       />
                       <span>&nbsp;</span>
-                      <span>M�dchen</span>
+                      <label htmlFor="girlRadio">Mädchen</label>
                     </div>
-                    <h3>oder ein</h3>
                     <div>
                       <input
                         type="radio"
                         name="sexRadioButton"
                         value="boy"
+                        id="boyRadio"
                         onChange={this.changeSex}
                         checked={sex === 'boy'}
                       />
                       <span>&nbsp;</span>
-                      <span>Bub</span>
+                      <label htmlFor="boyRadio">Bub</label>
                     </div>
                   </div>
                 )}
                 {betOptions.birthday && (
                   <div>
-                    <h3>Das Baby ist am</h3>
+                    <h4>Das Baby ist geboren am:</h4>
                     <div>
                       <input type="date" value={birthday} onChange={this.changeBirthday} />
                     </div>
-                    <h3>geboren</h3>
                   </div>
                 )}
                 {betOptions.weight && (
                   <div>
-                    <h3>Es wiegt</h3>
+                    <h3>Es wiegt so viel Gramm:</h3>
                     <div>
                       <input type="number" min="0" value={weight} onChange={this.changeWeight} />
                     </div>
-                    <h3>Gramm</h3>
+                  </div>
+                )}
+                {betOptions.babyName && (
+                  <div>
+                    <h3>Das Baby heißt:</h3>
+                    <div>
+                      <input type="test" value={babyName} onChange={this.changeBabyName} />
+                    </div>
                   </div>
                 )}
                 {betOptions.size && (
                   <div>
-                    <h3>Es ist</h3>
+                    <h3>Es ist Zentimeter groß:</h3>
                     <div>
                       <input type="number" min="0" value={size} onChange={this.changeSize} />
                     </div>
-                    <h3>Zentimeter gro� sein</h3>
                   </div>
                 )}
-                <button type="submit">
-                  <span>Wette aufl�sen</span>
+                <br />
+                <br />
+                <button type="submit" disabled={betOptions.babyName && !babyName}>
+                  <span>Wette auflösen</span>
                 </button>
               </form>
             )}

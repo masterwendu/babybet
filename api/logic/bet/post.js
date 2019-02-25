@@ -8,6 +8,7 @@ module.exports = async (req, res) => {
     plannedBirthDate,
     betOptions,
     betAmount,
+    uniqueBrowserId,
   } = req.body
   const { collection, client } = await initDb()
 
@@ -22,6 +23,7 @@ module.exports = async (req, res) => {
     betOptions,
     betAmount,
     bets: [],
+    adminBrowserId: uniqueBrowserId,
   })
   client.close()
 

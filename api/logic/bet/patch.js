@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
   } = req.params
   const { collection, client } = await initDb()
 
-  await collection.update(
+  await collection.updateOne(
     {
       _id,
     },

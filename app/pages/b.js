@@ -1,7 +1,10 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
+import { name as fakeName } from 'faker'
 import PropTypes from 'prop-types'
 import uuid from 'uuid/v4'
+import { BabyCarriage } from 'styled-icons/fa-solid'
 import { isValid } from 'shortid'
 import { withRouter } from 'next/router'
 import PageWrapper from '../components/Page'
@@ -211,56 +214,62 @@ class Page extends React.Component {
     return (
       <PageWrapper>
         {invalidId &&
-          <h1>Bitte füge eine gültige ID zur URL hinzu.</h1>
+          <h2>Bitte füge eine gültige ID zur URL hinzu.</h2>
         }
         {!invalidId && dataMissing &&
-          <h1>Leider haben wir keine Daten zu dieser Wette gefunden. Möglicherweise wurde Sie gelöscht :/</h1>
+          <h2>Leider haben wir keine Daten zu dieser Wette gefunden. Möglicherweise wurde Sie gelöscht :/</h2>
         }
         {!invalidId && !dataMissing && (
           <>
-            <h1>{name}</h1>
-            {!closed && (
+            <h2>{name}</h2>
+            {(
               <div>
-                <h2>Infos</h2>
+                <h3>Infos</h3>
                 <ul>
                   <li>
                     <span>Geburtstermin:&nbsp;</span>
-                    {plannedBirthDate}
+                    <b>{moment(plannedBirthDate).format('DD.MM.YYYY')}</b>
                   </li>
                   <li>
                     <span>Wetteinsatz:&nbsp;</span>
-                    {betAmount}
-                    <span>&nbsp;Euro</span>
+                    <b>
+                      {betAmount}
+                      <span>&nbsp;€</span>
+                    </b>
                   </li>
                   <li>
                     <span>Teilnehmer:&nbsp;</span>
-                    {numberOfBets}
+                    <b>{numberOfBets}</b>
                   </li>
                 </ul>
               </div>
             )}
             {closed && (
               <div>
-                <h2>Die Wette ist zu Ende. Wettergebnisse:</h2>
+                <h3>Die Wette ist zu Ende. Wettergebnisse:</h3>
                 <ul>
                   {betOptions.birthday && (
                     <li>
                       <span>Geburtstag:&nbsp;</span>
-                      {result.birthday}
+                      <b>{moment(result.birthday).format('DD.MM.YYYY')}</b>
                     </li>
                   )}
                   {betOptions.size && (
                     <li>
                       <span>Größe:&nbsp;</span>
-                      {result.size}
-                      <span>&nbsp;cm</span>
+                      <b>
+                        {result.size}
+                        <span>&nbsp;cm</span>
+                      </b>
                     </li>
                   )}
                   {betOptions.weight && (
                     <li>
                       <span>Gewicht:&nbsp;</span>
-                      {result.weight}
-                      <span>&nbsp;g</span>
+                      <b>
+                        {result.weight}
+                        <span>&nbsp;g</span>
+                      </b>
                     </li>
                   )}
                   {betOptions.sex && (
@@ -271,7 +280,7 @@ class Page extends React.Component {
                   )}
                   {betOptions.babyName && (
                     <li>
-                      <span>Der Name des Babies lautet:&nbsp;</span>
+                      <span>Das Baby heißt:&nbsp;</span>
                       <b>{result.babyName}</b>
                     </li>
                   )}
@@ -315,73 +324,70 @@ class Page extends React.Component {
             }
             {!betSaved && !saving && client && !closed && (
               <form onSubmit={this.saveBet}>
-                <h2>Wetten</h2>
+                <h3>Wetten</h3>
                 {betOptions.sex && (
                   <div>
-                    <h3>Wird es ein</h3>
+                    <h4>Wird es ein</h4>
                     <div>
                       <input
                         type="radio"
                         name="sexRadioButton"
                         value="girl"
+                        id="girlRadio"
                         onChange={this.changeSex}
                         checked={sex === 'girl'}
                       />
                       <span>&nbsp;</span>
-                      <span>Mädchen</span>
+                      <label htmlFor="girlRadio">Mädchen</label>
                     </div>
-                    <h3>oder ein</h3>
                     <div>
                       <input
                         type="radio"
                         name="sexRadioButton"
                         value="boy"
+                        id="boyRadio"
                         onChange={this.changeSex}
                         checked={sex === 'boy'}
                       />
                       <span>&nbsp;</span>
-                      <span>Bub</span>
+                      <label htmlFor="boyRadio">Bub</label>
                     </div>
                   </div>
                 )}
                 {betOptions.birthday && (
                   <div>
-                    <h3>Das Baby wird am</h3>
+                    <h4>Das Baby wird geboren am:</h4>
                     <div>
                       <input type="date" value={birthday} onChange={this.changeBirthday} />
                     </div>
-                    <h3>geboren</h3>
                   </div>
                 )}
                 {betOptions.babyName && (
                   <div>
-                    <h3>Das Kind wird folgenden Vornamen tragen:</h3>
+                    <h4>Das Kind wird folgenden Vornamen tragen:</h4>
                     <div>
-                      <input placeholder="Z.B.: Shiloh" type="text" value={babyName} onChange={this.changeBabyName} />
+                      <input placeholder={`Z.B.: ${fakeName.firstName()}`} type="text" value={babyName} onChange={this.changeBabyName} />
                     </div>
                   </div>
                 )}
                 {betOptions.weight && (
                   <div>
-                    <h3>Es wird wiegen</h3>
+                    <h4>Es wird wiegen in Gramm:</h4>
                     <div>
                       <input type="number" min="0" value={weight} onChange={this.changeWeight} />
                     </div>
-                    <h3>Gramm</h3>
                   </div>
                 )}
                 {betOptions.size && (
                   <div>
-                    <h3>Es wird</h3>
+                    <h4>Es wird wie viel Zentimeter groß sein:</h4>
                     <div>
                       <input type="number" min="0" value={size} onChange={this.changeSize} />
                     </div>
-                    <h3>Zentimeter groß sein</h3>
                   </div>
                 )}
                 <div>
-                  <span>Dein Name:</span>
-                  <span>&nbsp;</span>
+                  <h4>Dein Name:</h4>
                   <input
                     type="text"
                     placeholder="Dein Name"
@@ -389,8 +395,15 @@ class Page extends React.Component {
                     onChange={this.changeName}
                   />
                 </div>
+                <br />
+                <p><i>Babybet verwendet Cookies (LocalStorage) um deinen Namen und deine Wetten zu speichern, alle Daten die du bei uns angiebst werden nicht an Dritte weitergegeben und werden nur für die Wettenauswertung verwendet.</i></p>
+                <br />
                 <button type="submit" disabled={!personsName || (betOptions.babyName && !babyName)}>
+                  <BabyCarriage size="18" />
+                  <span>&nbsp;</span>
                   <span>Wette abgeben</span>
+                  <span>&nbsp;</span>
+                  <BabyCarriage size="18" />
                 </button>
               </form>
             )}

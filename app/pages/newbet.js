@@ -1,31 +1,42 @@
 import React from 'react'
 import moment from 'moment'
+import uuid from 'uuid/v4'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Copy as CopyIcon } from 'styled-icons/boxicons-solid'
 import { ToastContainer, toast } from 'react-toastify'
 import PageWrapper from '../components/Page'
 
 export default class NewBet extends React.Component {
-  state = {
-    fields: {
-      name: '',
-      plannedBirthDate: moment().add(3, 'months').format('YYYY-MM-DD'),
-      betOptions: {
-        sex: true,
-        birthday: false,
-        weight: false,
-        babyName: false,
-        size: false,
-      },
-      betAmount: '1',
-    },
-  }
-
   constructor(props) {
     super(props)
 
-    if (typeof window !== 'undefined') {
+    let uniqueBrowserId
+    const client = typeof localStorage !== 'undefined'
+
+    if (client) {
       import('react-toastify/dist/ReactToastify.min.css')
+      uniqueBrowserId = localStorage.getItem('browserId')
+
+      if (!uniqueBrowserId) {
+        uniqueBrowserId = uuid()
+        localStorage.setItem('browserId', uniqueBrowserId)
+      }
+    }
+
+    this.state = {
+      fields: {
+        name: '',
+        plannedBirthDate: moment().add(3, 'months').format('YYYY-MM-DD'),
+        betOptions: {
+          sex: true,
+          birthday: false,
+          weight: false,
+          babyName: false,
+          size: false,
+        },
+        betAmount: '1',
+      },
+      uniqueBrowserId,
     }
   }
 
@@ -83,7 +94,7 @@ export default class NewBet extends React.Component {
         loading: true,
       }, async () => {
         try {
-          const { fields } = this.state
+          const { fields, uniqueBrowserId } = this.state
 
           fields.betAmount = Number(fields.betAmount.replace(',', '.'))
 
@@ -93,7 +104,10 @@ export default class NewBet extends React.Component {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(fields),
+            body: JSON.stringify({
+              ...fields,
+              uniqueBrowserId,
+            }),
           })
 
           const created = await response.json()
@@ -240,7 +254,7 @@ export default class NewBet extends React.Component {
                 <input id="inputBabyName" onChange={this.changeBetOptionField('babyName')} checked={babyName} type="checkbox" />
                 <label htmlFor="inputBabyName">
                   <span>&nbsp;</span>
-                  Name des Babies
+                  Vorname des Babies
                 </label>
               </div>
               <br />
@@ -251,6 +265,8 @@ export default class NewBet extends React.Component {
                 <br />
                 <input step="0.01" min="0" id="inputBetAmount" onChange={this.changeField('betAmount')} value={betAmount} type="number" />
               </div>
+              <br />
+              <p><i>Babybet verwendet Cookies (LocalStorage) um Daten zu den Wetten zu speichern und es für dich einfacher zu machen auf deine Wetten zuzugreifen. Es werden keine Daten an Dritte weitergegeben und alle Daten werden nur für die Auswertung der Wetten verwendet.</i></p>
               <br />
               <div>
                 <button

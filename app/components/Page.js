@@ -1,6 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import styled, { createGlobalStyle } from 'styled-components'
+import { Baby as BabyIcon } from 'styled-icons/fa-solid'
 import Head from 'next/head'
 
 const GlobalStyle = createGlobalStyle`
@@ -26,6 +28,12 @@ const GlobalStyle = createGlobalStyle`
     }
     width: calc(100% - 12px);
     &[type='checkbox'] {
+      width: auto;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    &[type='radio'] {
       width: auto;
       &:focus {
         box-shadow: none;
@@ -88,6 +96,16 @@ const Wrapper = styled.div`
   position: absolute;
   width: 100%;
   min-height: 100%;
+
+  a.h1 {
+    text-decoration: none;
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+  }
 `
 const Content = styled.div`
   position: relative;
@@ -95,7 +113,9 @@ const Content = styled.div`
   text-align: left;
   max-width: 600px;
   margin: 10px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 `
 
 const Page = ({ children }) => (
@@ -105,9 +125,17 @@ const Page = ({ children }) => (
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="robots" content="noindex,nofollow,noarchive" />
+      <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
+      <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
       <title>Babybet</title>
     </Head>
     <Wrapper>
+      <Link href="/">
+        <a className="h1">
+          <BabyIcon size="37" />
+          <span>&nbsp;Babybet</span>
+        </a>
+      </Link>
       <Content>
         {children}
       </Content>

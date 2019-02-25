@@ -10,10 +10,14 @@ module.exports = async (req, res) => {
 
   const results = await collection.find(
     {
-      'bets.uniqueBrowserId': uniqueBrowserId,
+      $or: [
+        { 'bets.uniqueBrowserId': uniqueBrowserId },
+        { 'adminBrowserId': uniqueBrowserId },
+      ],
     },
     {
       _id: true,
+      adminId: true,
       name: true,
       plannedBirthDate: true,
       betAmount: true,
@@ -22,6 +26,7 @@ module.exports = async (req, res) => {
       closed: true,
       winners: true,
       winnersAmount: true,
+      adminBrowserId: true,
     }
   ).toArray()
   client.close()
@@ -30,7 +35,8 @@ module.exports = async (req, res) => {
     ...bet,
     numberOfBets: bet.bets.length,
     closed: bet.closed,
-    won: closed && winners.filter(({ uniqueBrowserId: winnerUniqueBrowserId }) => uniqueBrowserId === winnerUniqueBrowserId).length > 0,
+    won: bet.closed && bet.winners.filter(({ uniqueBrowserId: winnerUniqueBrowserId }) => uniqueBrowserId === winnerUniqueBrowserId).length > 0,
     winnersAmount: bet.winnersAmount,
+    adminId: bet.adminBrowserId === uniqueBrowserId ? bet.adminId : undefined,
   })))
 }

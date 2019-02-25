@@ -47,16 +47,10 @@ class Page extends React.Component {
 
     return (
       <PageWrapper>
-        <h1>Babybet</h1>
         <p>Hallo bei Babybet</p>
         <div>
           <Link href="/newbet">
-            <a>Wette erstellen</a>
-          </Link>
-        </div>
-        <div>
-          <Link href="/about">
-            <a>‹ber babybet</a>
+            <button type="button">Neue Wette erstellen</button>
           </Link>
         </div>
         {loading && (
@@ -66,37 +60,58 @@ class Page extends React.Component {
           {!loading && bets && !!bets.length && (
             <div>
               <h2>Deine Wetten: </h2>
-              {bets.map((bet) => (
-                <div>
+              {bets.map((bet, k) => (
+                <div key={`myBet${k}`}>
                   <div>
-                    {bet.name}
-                    {bet.closed && ' (Wette beendet)'}
-                    <span>&nbsp;</span>
-                    {!bet.closed && (
-                      <>
-                        <span>(Wette l√§uft,&nbsp;</span>
-                        {bet.numberOfBets}
-                        <span>&nbsp;Wetten abgegeben)</span>
-                      </>
-                    )}
+                    <b>{bet.name}</b>
+                    <br />
+                    <i>
+                      {bet.closed ?
+                        <span>Wette beendet</span> :
+                        (
+                          <span>
+                            <span>Wette l‰uft,&nbsp;</span>
+                            {bet.numberOfBets}
+                            <span>&nbsp;Wette</span>
+                            {bet.numberOfBets !== 1 && 'n'}
+                            <span>&nbsp;abgegeben</span>
+                          </span>
+                        )
+                      }
+                    </i>
                     {bet.closed && bet.won && (
                       <div>
-                        <h4>
+                        <b>
                           <span>Du hast&nbsp;</span>
                           {bet.winnersAmount}
                           <span>&nbsp;Euro gewonnen!</span>
-                        </h4>
+                        </b>
                       </div>
                     )}
                     {bet.closed && !bet.won && (
                       <div>
-                        <h4>Du hast leider nichts gewonnen!</h4>
+                        <b>Du hast leider nichts gewonnen!</b>
                       </div>
                     )}
                   </div>
                   <Link href={`/b/${bet._id}`}>
-                    <a>Wette ansehen</a>
+                    <a>
+                      {'=>'}
+                      <span>&nbsp;Wette ansehen</span>
+                    </a>
                   </Link>
+                  <br />
+                  {bet.adminId && (
+                    <>
+                      <Link href={`/ba/${bet.adminId}`}>
+                        <a>
+                          {'==>'}
+                          <span>&nbsp;Wette administrieren</span>
+                        </a>
+                      </Link>
+                      <br />
+                    </>
+                  )}
                   <br />
                 </div>
               ))}

@@ -50,6 +50,7 @@ module.exports = async (req, res) => {
       score++
     }
     if (
+      babyName &&
       betBabyName
         .toLowerCase()
         .replace(/ /g, '')

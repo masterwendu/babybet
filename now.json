@@ -9,8 +9,7 @@
     {
       "src": "api/index.js",
       "use": "@now/node"
-    },
-    { "src": "robots.txt", "use": "@now/static" }
+    }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "api/index.js" },

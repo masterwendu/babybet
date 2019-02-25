@@ -12,9 +12,13 @@ module.exports = async (req, res) => {
     {
       _id,
     },
-    {$push: { bets: {
-      ...req.body,
-    }}}
+    {
+      $push: {
+        bets: {
+          ...req.body,
+        },
+      },
+    }
   )
 
   client.close()

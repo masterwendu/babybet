@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
     weight,
     size,
     birthday,
+    babyName,
   } = req.body
 
   const [b] = await collection.find(
@@ -32,6 +33,7 @@ module.exports = async (req, res) => {
       weight: betWeight,
       size: betSize,
       birthday: betBirthday,
+      babyName: betBabyName,
     },
   }) => {
     let score = 0
@@ -45,6 +47,18 @@ module.exports = async (req, res) => {
       score++
     }
     if (betBirthday === birthday) {
+      score++
+    }
+    if (
+      betBabyName
+        .toLowerCase()
+        .replace(/ /g, '')
+        .replace(/-/g, '') ===
+      babyName
+        .toLowerCase()
+        .replace(/ /g, '')
+        .replace(/-/g, '')
+    ) {
       score++
     }
 
@@ -85,6 +99,7 @@ module.exports = async (req, res) => {
           weight,
           size,
           birthday,
+          babyName,
         },
         winnersAmount,
         winners,

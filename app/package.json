@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=development node server.js",
     "build": "next build",
     "next:start": "next start",
     "lint": "eslint --fix pages/**/*.js server.js next.config.js"

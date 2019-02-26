@@ -6,7 +6,7 @@ const initDb = async () => {
   let server = process.env.MONGO_SERVER
   let dbName = process.env.MONGO_DB_NAME
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'development') {
     const secrets = require('./now-secrets.json')
 
     user = secrets['@babybet-mongodb-user']

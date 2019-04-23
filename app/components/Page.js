@@ -92,6 +92,8 @@ const GlobalStyle = createGlobalStyle`
   .copyUrlWrapper {
     display: flex;
     align-items: flex-start;
+    width: calc(100% - 64px);
+
     .copyUrl {
       display: inline-block;
       width: calc(100% - 64px);

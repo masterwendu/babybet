@@ -169,8 +169,8 @@ export default class NewBet extends React.Component {
     let betUrl = ''
     let betAdminUrl = ''
     if (created && typeof window !== 'undefined') {
-      betUrl = `${window.location.host}/b/${created.id}`
-      betAdminUrl = `${window.location.host}/ba/${created.adminId}`
+      betUrl = `${window.location.protocol}//${window.location.host}/b/${created.id}`
+      betAdminUrl = `${window.location.protocol}//${window.location.host}/ba/${created.adminId}`
     }
 
     return (
@@ -191,11 +191,11 @@ export default class NewBet extends React.Component {
           <div>
             <h3>Neue Wette erstellen</h3>
             <p>
-              Wenn du eine Babywette erstellst bitte denke vorher gut darüber nach.
+              Wenn du eine Babywette erstellst bitte denke vorher gut dar&uuml;ber nach.
               Frage auf jeden Fall immer beide Eltern des Kindes um Erlaubnis und vergewissere dich, dass es wirklich ok ist, auf ihr Ungeborenes zu wetten.
             </p>
             <p>
-              Eine Wette kann auch einen Wetteinsatz haben, dieser ist rein privat und den Personen welche an der Wette teilnehmen. Es gibt keinen Rechtsanspruch auf Geld und Babybet.de dient nur als Hilfsmittel für die Wette, kann aber keine Schulden eintreiben.
+              Eine Wette kann auch einen Wetteinsatz haben, dieser ist rein privat und den Personen welche an der Wette teilnehmen. Es gibt keinen Rechtsanspruch auf Geld und Babybet.de dient nur als Hilfsmittel f&uuml;r die Wette, kann aber keine Schulden eintreiben.
             </p>
 
             <form onSubmit={this.submit}>
@@ -221,7 +221,7 @@ export default class NewBet extends React.Component {
                 <input id="inputPlannedBirthDate" onChange={this.changeField('plannedBirthDate')} value={plannedBirthDate} type="date" />
               </div>
               <br />
-              <h4>Welche Wettoption möchtest du aktivieren?</h4>
+              <h4>Welche Wettoption m&ouml;chtest du aktivieren?</h4>
               <div>
                 <input id="inputSex" onChange={this.changeBetOptionField('sex')} checked={sex} type="checkbox" />
                 <label htmlFor="inputSex">
@@ -247,7 +247,7 @@ export default class NewBet extends React.Component {
                 <input id="inputSize" onChange={this.changeBetOptionField('size')} checked={size} type="checkbox" />
                 <label htmlFor="inputSize">
                   <span>&nbsp;</span>
-                  Größe [cm]
+                  Gr&ouml;ße [cm]
                 </label>
               </div>
               <div>
@@ -266,7 +266,7 @@ export default class NewBet extends React.Component {
                 <input step="0.01" min="0" id="inputBetAmount" onChange={this.changeField('betAmount')} value={betAmount} type="number" />
               </div>
               <br />
-              <p><i>Babybet verwendet Cookies (LocalStorage) um Daten zu den Wetten zu speichern und es für dich einfacher zu machen auf deine Wetten zuzugreifen. Es werden keine Daten an Dritte weitergegeben und alle Daten werden nur für die Auswertung der Wetten verwendet.</i></p>
+              <p><i>Babybet verwendet Cookies (LocalStorage) um Daten zu den Wetten zu speichern und es f&uuml;r dich einfacher zu machen auf deine Wetten zuzugreifen. Es werden keine Daten an Dritte weitergegeben und alle Daten werden nur f&uuml;r die Auswertung der Wetten verwendet.</i></p>
               <br />
               <div>
                 <button
@@ -294,37 +294,41 @@ export default class NewBet extends React.Component {
           <div>
             <h3>Babybet wurde erfolgreich erstellt</h3>
             <h4>Url zum Wetten:</h4>
-            <p>Sende diese URL zu deinen Freunden damit sie mitspielen können</p>
-            <a
-              className="copyUrl"
-              href={betUrl}
-              target="_blank"
-            >
-              <div>
-                {betUrl}
+            <p>Sende diese URL zu deinen Freunden damit sie mitspielen k&ouml;nnen</p>
+            <div className="copyUrlWrapper">
+              <div
+                className="copyUrl"
+              >
+                <a
+                  href={betUrl}
+                  target="_blank"
+                >
+                  {betUrl}
+                </a>
               </div>
-            </a>
-            <CopyToClipboard onCopy={this.copyBetUrl} text={betUrl}>
-              <button className="copyUrlButton" type="button">
-                <CopyIcon size="16" title="In die Zwischenablage kopieren" />
-              </button>
-            </CopyToClipboard>
+              <CopyToClipboard onCopy={this.copyBetUrl} text={betUrl}>
+                <button className="copyUrlButton" type="button">
+                  <CopyIcon size="16" title="In die Zwischenablage kopieren" />
+                </button>
+              </CopyToClipboard>
+            </div>
             <h4>Url zum Administrieren</h4>
-            <p>Nur für dich, damit du die Wette beenden kannst, ändern oder löschen, bitte speichere diesen Link ab, damit du später die Wette auflösen kannst.</p>
-            <a
-              className="copyUrl"
-              href={betAdminUrl}
-              target="_blank"
-            >
-              <div>
-                {betAdminUrl}
+            <p>Nur f&uuml;r dich, damit du die Wette beenden kannst, &auml;ndern oder l&ouml;schen, bitte speichere diesen Link ab, damit du sp&auml;ter die Wette aufl&ouml;sen kannst.</p>
+            <div className="copyUrlWrapper">
+              <div className="copyUrl">
+                <a
+                  href={betAdminUrl}
+                  target="_blank"
+                >
+                  {betAdminUrl}
+                </a>
               </div>
-            </a>
-            <CopyToClipboard onCopy={this.copyAdminUrl} text={betAdminUrl}>
-              <button className="copyUrlButton" type="button">
-                <CopyIcon size="16" title="In die Zwischenablage kopieren" />
-              </button>
-            </CopyToClipboard>
+              <CopyToClipboard onCopy={this.copyAdminUrl} text={betAdminUrl}>
+                <button className="copyUrlButton" type="button">
+                  <CopyIcon size="16" title="In die Zwischenablage kopieren" />
+                </button>
+              </CopyToClipboard>
+            </div>
           </div>
         )}
       </PageWrapper>

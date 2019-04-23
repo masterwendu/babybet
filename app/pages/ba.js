@@ -238,7 +238,7 @@ class Page extends React.Component {
                 type="submit"
                 disabled={!((name && name !== serverName) || (plannedBirthDate && plannedBirthDate !== serverPlannedBirthDate))}
               >
-                Wette ändern
+                Wette &auml;ndern
               </button>
             </div>
           </form>
@@ -248,15 +248,15 @@ class Page extends React.Component {
         }
         {betClosed && (
           <div>
-            <h3>Herzlichen Glückwunsch! Die Wette ist beendet.</h3>
+            <h3>Herzlichen Gl&uuml;ckwunsch! Die Wette ist beendet.</h3>
             <Link href={`/b/${betId}`}>
-              <a>Klicke hier für die Ergebnisse</a>
+              <a>Klicke hier f&uuml;r die Ergebnisse</a>
             </Link>
           </div>
         )}
         {!betClosed && (
           <div>
-            <h3>Wette beenden und auflösen</h3>
+            <h3>Wette beenden und aufl&ouml;sen</h3>
             {closeBetSaving &&
               <h4>Wette wird beendet...</h4>
             }
@@ -275,7 +275,7 @@ class Page extends React.Component {
                         checked={sex === 'girl'}
                       />
                       <span>&nbsp;</span>
-                      <label htmlFor="girlRadio">Mädchen</label>
+                      <label htmlFor="girlRadio">M&auml;dchen</label>
                     </div>
                     <div>
                       <input
@@ -326,7 +326,7 @@ class Page extends React.Component {
                 <br />
                 <br />
                 <button type="submit" disabled={betOptions.babyName && !babyName}>
-                  <span>Wette auflösen</span>
+                  <span>Wette aufl&ouml;sen</span>
                 </button>
               </form>
             )}

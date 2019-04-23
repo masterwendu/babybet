@@ -46,6 +46,10 @@ const GlobalStyle = createGlobalStyle`
       border: 1px solid white;
       box-shadow: 0px 0px 6px 3px white;
     }
+
+    &.copyUrlInput {
+      width: calc(100% - 64px);
+    }
   }
 
   button {
@@ -84,14 +88,20 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  a.copyUrl {
-    div {
+
+  .copyUrlWrapper {
+    display: flex;
+    align-items: flex-start;
+    .copyUrl {
       display: inline-block;
       width: calc(100% - 64px);
       border: 1px solid white;
       padding: 6px;
       text-decoration: underline;
       cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `
@@ -128,6 +138,7 @@ const Content = styled.div`
 const Page = ({ children }) => (
   <>
     <Head>
+      <meta httpEquiv="content-type" content="text/html; charset=utf-8"></meta>
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />

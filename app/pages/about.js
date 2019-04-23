@@ -3,7 +3,7 @@ import Wrapper from '../components/Page'
 
 const Page = () => (
   <Wrapper>
-    Über Babybet: ...folgt in Kürze
+    &Uuml;ber Babybet: ...folgt in K&uuml;rze
   </Wrapper>
 )
 

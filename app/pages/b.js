@@ -220,10 +220,10 @@ class Page extends React.Component {
     return (
       <PageWrapper>
         {invalidId &&
-          <h2>Bitte füge eine gültige ID zur URL hinzu.</h2>
+          <h2>Bitte f&uuml;ge eine g&uuml;ltige ID zur URL hinzu.</h2>
         }
         {!invalidId && dataMissing &&
-          <h2>Leider haben wir keine Daten zu dieser Wette gefunden. Möglicherweise wurde Sie gelöscht :/</h2>
+          <h2>Leider haben wir keine Daten zu dieser Wette gefunden. M&ouml;glicherweise wurde Sie gel&ouml;scht :/</h2>
         }
         {!invalidId && !dataMissing && (
           <>
@@ -262,7 +262,7 @@ class Page extends React.Component {
                   )}
                   {betOptions.size && (
                     <li>
-                      <span>Größe:&nbsp;</span>
+                      <span>Gr&ouml;ße:&nbsp;</span>
                       <b>
                         {result.size}
                         <span>&nbsp;cm</span>
@@ -281,7 +281,7 @@ class Page extends React.Component {
                   {betOptions.sex && (
                     <li>
                       <span>Es ist ein&nbsp;</span>
-                      <b>{result.sex === 'girl' ? 'Bub' : 'Mädchen'}</b>
+                      <b>{result.sex === 'girl' ? 'Bub' : 'M&auml;dchen'}</b>
                     </li>
                   )}
                   {betOptions.babyName && (
@@ -344,7 +344,7 @@ class Page extends React.Component {
                         checked={sex === 'girl'}
                       />
                       <span>&nbsp;</span>
-                      <label htmlFor="girlRadio">Mädchen</label>
+                      <label htmlFor="girlRadio">M&auml;dchen</label>
                     </div>
                     <div>
                       <input
@@ -405,7 +405,7 @@ class Page extends React.Component {
                   />
                 </div>
                 <br />
-                <p><i>Babybet verwendet Cookies (LocalStorage) um deinen Namen und deine Wetten zu speichern, alle Daten die du bei uns angiebst werden nicht an Dritte weitergegeben und werden nur für die Wettenauswertung verwendet.</i></p>
+                <p><i>Babybet verwendet Cookies (LocalStorage) um deinen Namen und deine Wetten zu speichern, alle Daten die du bei uns angiebst werden nicht an Dritte weitergegeben und werden nur f&uuml;r die Wettenauswertung verwendet.</i></p>
                 <br />
                 <button type="submit" disabled={!personsName || (betOptions.babyName && !babyName)}>
                   <BabyCarriage size="18" />

@@ -70,7 +70,7 @@ class Page extends React.Component {
                         <span>Wette beendet</span> :
                         (
                           <span>
-                            <span>Wette läuft,&nbsp;</span>
+                            <span>Wette l&auml;uft,&nbsp;</span>
                             {bet.numberOfBets}
                             <span>&nbsp;Wette</span>
                             {bet.numberOfBets !== 1 && 'n'}

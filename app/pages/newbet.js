@@ -170,7 +170,7 @@ export default class NewBet extends React.Component {
     let betAdminUrl = ''
     if (created && typeof window !== 'undefined') {
       betUrl = `${window.location.host}/b/${created.id}`
-      betAdminUrl = `${window.location.host}/c/${created.adminId}`
+      betAdminUrl = `${window.location.host}/ba/${created.adminId}`
     }
 
     return (
@@ -295,7 +295,15 @@ export default class NewBet extends React.Component {
             <h3>Babybet wurde erfolgreich erstellt</h3>
             <h4>Url zum Wetten:</h4>
             <p>Sende diese URL zu deinen Freunden damit sie mitspielen können</p>
-            <input className="copyUrlInput" type="text" readOnly defaultValue={betUrl} />
+            <a
+              className="copyUrl"
+              href={betUrl}
+              target="_blank"
+            >
+              <div>
+                {betUrl}
+              </div>
+            </a>
             <CopyToClipboard onCopy={this.copyBetUrl} text={betUrl}>
               <button className="copyUrlButton" type="button">
                 <CopyIcon size="16" title="In die Zwischenablage kopieren" />
@@ -303,8 +311,16 @@ export default class NewBet extends React.Component {
             </CopyToClipboard>
             <h4>Url zum Administrieren</h4>
             <p>Nur für dich, damit du die Wette beenden kannst, ändern oder löschen, bitte speichere diesen Link ab, damit du später die Wette auflösen kannst.</p>
-            <input className="copyUrlInput" type="text" readOnly defaultValue={betAdminUrl} />
-            <CopyToClipboard onCopy={this.copyAdminUrl} text={betUrl}>
+            <a
+              className="copyUrl"
+              href={betAdminUrl}
+              target="_blank"
+            >
+              <div>
+                {betAdminUrl}
+              </div>
+            </a>
+            <CopyToClipboard onCopy={this.copyAdminUrl} text={betAdminUrl}>
               <button className="copyUrlButton" type="button">
                 <CopyIcon size="16" title="In die Zwischenablage kopieren" />
               </button>

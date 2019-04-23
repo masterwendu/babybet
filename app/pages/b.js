@@ -4,7 +4,7 @@ import moment from 'moment'
 import { name as fakeName } from 'faker'
 import PropTypes from 'prop-types'
 import uuid from 'uuid/v4'
-import { BabyCarriage } from 'styled-icons/fa-solid'
+import { BabyCarriage, Dice } from 'styled-icons/fa-solid'
 import { isValid } from 'shortid'
 import { withRouter } from 'next/router'
 import PageWrapper from '../components/Page'
@@ -60,6 +60,7 @@ class Page extends React.Component {
       uniqueBrowserId,
       bets: {},
       bet,
+      nameSuggestion: fakeName.firstName(),
     }
   }
 
@@ -179,6 +180,10 @@ class Page extends React.Component {
     })
   }
 
+  getNewNameSuggestion = () => {
+    this.setState({ nameSuggestion: fakeName.firstName() })
+  }
+
   render() {
     const {
       betSaved,
@@ -198,6 +203,7 @@ class Page extends React.Component {
         winners,
         winnersAmount,
       },
+      nameSuggestion,
     } = this.state
 
     const {
@@ -312,7 +318,7 @@ class Page extends React.Component {
             {betSaved && (
               <h3>
                 <span>
-                  Danke dass du mitgewettet hast
+                  Danke, dass du mitgewettet hast
                 </span>
                 <span>&nbsp;</span>
                 {personsName}
@@ -366,7 +372,10 @@ class Page extends React.Component {
                   <div>
                     <h4>Das Kind wird folgenden Vornamen tragen:</h4>
                     <div>
-                      <input placeholder={`Z.B.: ${fakeName.firstName()}`} type="text" value={babyName} onChange={this.changeBabyName} />
+                      <input className="copyUrlInput" placeholder={`Z.B.: ${nameSuggestion}`} type="text" value={babyName} onChange={this.changeBabyName} />
+                      <button className="copyUrlButton" type="button">
+                        <Dice size="16" title="Neuen Zufallsnamen generieren" onClick={this.getNewNameSuggestion} />
+                      </button>
                     </div>
                   </div>
                 )}

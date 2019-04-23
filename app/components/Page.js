@@ -46,10 +46,6 @@ const GlobalStyle = createGlobalStyle`
       border: 1px solid white;
       box-shadow: 0px 0px 6px 3px white;
     }
-
-    &.copyUrlInput {
-      width: calc(100% - 62px);
-    }
   }
 
   button {
@@ -85,6 +81,17 @@ const GlobalStyle = createGlobalStyle`
       &:hover {
         box-shadow: none;
       }
+    }
+  }
+
+  a.copyUrl {
+    div {
+      display: inline-block;
+      width: calc(100% - 64px);
+      border: 1px solid white;
+      padding: 6px;
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 `

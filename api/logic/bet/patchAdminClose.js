@@ -78,7 +78,7 @@ module.exports = async (req, res) => {
   })
 
 
-  let result = result.map((bet) => {
+  result = result.map((bet) => {
     const {
       score,
       weightDifference,

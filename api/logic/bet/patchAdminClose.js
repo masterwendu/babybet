@@ -25,7 +25,10 @@ module.exports = async (req, res) => {
     }
   ).toArray()
 
-  const result = b.bets.map(({
+  let nearestWeightDifference
+  let nearestSizeDifference
+
+  let result = b.bets.map(({
     uniqueBrowserId,
     name,
     bets: {
@@ -40,11 +43,13 @@ module.exports = async (req, res) => {
     if (betSex === sex) {
       score++
     }
-    if (betWeight === weight) {
-      score++
+    const weightDifference = Math.abs(weight - betWeight)
+    if (!nearestWeightDifference || weightDifference < nearestWeightDifference) {
+      nearestWeightDifference = weightDifference
     }
-    if (betSize === size) {
-      score++
+    const sizeDifference = Math.abs(size - betSize)
+    if (!nearestSizeDifference || sizeDifference < nearestSizeDifference) {
+      nearestSizeDifference = sizeDifference
     }
     if (betBirthday === birthday) {
       score++
@@ -67,6 +72,30 @@ module.exports = async (req, res) => {
       uniqueBrowserId,
       name,
       score,
+      weightDifference,
+      sizeDifference,
+    }
+  })
+
+
+  let result = result.map((bet) => {
+    const {
+      score,
+      weightDifference,
+      sizeDifference,
+    } = bet
+    let extraScore = 0
+
+    if (weightDifference === nearestWeightDifference) {
+      extraScore++
+    }
+    if (sizeDifference === nearestSizeDifference) {
+      extraScore++
+    }
+
+    return {
+      ...bet,
+      score: score + extraScore,
     }
   })
 

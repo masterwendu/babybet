@@ -41,7 +41,8 @@ class Page extends React.Component {
     }
   }
 
-  editBet = () => {
+  editBet = (e) => {
+    e.preventDefault()
     this.setState({
       saving: true,
     }, async () => {

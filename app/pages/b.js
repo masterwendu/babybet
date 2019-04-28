@@ -64,7 +64,8 @@ class Page extends React.Component {
     }
   }
 
-  saveBet = () => {
+  saveBet = (e) => {
+    e.preventDefault()
     const {
       bet: {
         betOptions,

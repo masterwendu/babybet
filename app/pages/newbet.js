@@ -247,7 +247,7 @@ export default class NewBet extends React.Component {
                 <input id="inputSize" onChange={this.changeBetOptionField('size')} checked={size} type="checkbox" />
                 <label htmlFor="inputSize">
                   <span>&nbsp;</span>
-                  Gr&ouml;ße [cm]
+                  Gr&ouml;&szlig;e [cm]
                 </label>
               </div>
               <div>

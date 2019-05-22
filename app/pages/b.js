@@ -263,7 +263,7 @@ class Page extends React.Component {
                   )}
                   {betOptions.size && (
                     <li>
-                      <span>Gr&ouml;ße:&nbsp;</span>
+                      <span>Gr&ouml;&szlig;e:&nbsp;</span>
                       <b>
                         {result.size}
                         <span>&nbsp;cm</span>
@@ -282,12 +282,12 @@ class Page extends React.Component {
                   {betOptions.sex && (
                     <li>
                       <span>Es ist ein&nbsp;</span>
-                      <b>{result.sex === 'girl' ? 'Bub' : 'M&auml;dchen'}</b>
+                      <b>{result.sex === 'girl' ? <span>M&auml;dchen</span> : 'Bub'}</b>
                     </li>
                   )}
                   {betOptions.babyName && (
                     <li>
-                      <span>Das Baby heißt:&nbsp;</span>
+                      <span>Das Baby hei&szlig;t:&nbsp;</span>
                       <b>{result.babyName}</b>
                     </li>
                   )}
@@ -299,8 +299,8 @@ class Page extends React.Component {
                       <span>Es gab </span>
                       {winners.length}
                       <span>&nbsp;Gewinner, welche jeweils&nbsp;</span>
-                      {winnersAmount}
-                      <span>&nbsp;Euro erhalten.</span>
+                      {winnersAmount.toFixed(2)}
+                      <span>&nbsp;&euro; erhalten.</span>
                     </h4>
                   )
                 }
@@ -390,7 +390,7 @@ class Page extends React.Component {
                 )}
                 {betOptions.size && (
                   <div>
-                    <h4>Es wird wie viel Zentimeter groß sein:</h4>
+                    <h4>Es wird wie viel Zentimeter gro&szlig; sein:</h4>
                     <div>
                       <input type="number" min="0" value={size} onChange={this.changeSize} />
                     </div>

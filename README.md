@@ -1,14 +1,17 @@
 # babybet
 Webapp to bet on babies gender, size, weight, birthday, ...
 
-* Nextjs
-* express server
-* mongodb database
+- Nextjs
+- express server
+- mongodb database
 
-## TODO
+test the app on [beta.babybet.de](https://beta.babybet.de)
 
-* Add linter
-* Add lint-staged
-* Add api functions
-* Add now.json api build
-* Add include api in app/server.js when we are on dev mode
+## Road to release
+
+- Add birth time as bet option
+- add e-mail field to bet
+  - send user his/her bet
+  - add possibility to edit bet with one time email password
+- a date for last chance to bet
+- Own babybet icon

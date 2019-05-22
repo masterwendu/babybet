@@ -43,17 +43,21 @@ module.exports = async (req, res) => {
     if (betSex === sex) {
       score++
     }
-    const weightDifference = Math.abs(weight - betWeight)
-    if (!nearestWeightDifference || weightDifference < nearestWeightDifference) {
+    const weightDifference = Math.abs(Number(weight) - Number(betWeight))
+
+    if (typeof nearestWeightDifference === 'undefined' || weightDifference < nearestWeightDifference) {
       nearestWeightDifference = weightDifference
     }
-    const sizeDifference = Math.abs(size - betSize)
-    if (!nearestSizeDifference || sizeDifference < nearestSizeDifference) {
+
+    const sizeDifference = Math.abs(Number(size) - Number(betSize))
+    if (typeof nearestSizeDifference === 'undefined' || sizeDifference < nearestSizeDifference) {
       nearestSizeDifference = sizeDifference
     }
+
     if (betBirthday === birthday) {
       score++
     }
+
     if (
       babyName &&
       betBabyName
@@ -76,7 +80,6 @@ module.exports = async (req, res) => {
       sizeDifference,
     }
   })
-
 
   result = result.map((bet) => {
     const {
@@ -116,8 +119,7 @@ module.exports = async (req, res) => {
     winnersAmount = (b.betAmount * b.bets.length) / winners.length
   }
 
-
-  await collection.update(
+  await collection.updateOne(
     {
       adminId,
     },

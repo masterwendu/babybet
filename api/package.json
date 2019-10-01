@@ -14,10 +14,10 @@
     "body-parser": "^1.18.3"
   },
   "devDependencies": {
-    "eslint": "5.12.1",
-    "babel-eslint": "10.0.1",
-    "eslint-config-airbnb": "17.1.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-import-resolver-webpack": "0.11.0"
+    "eslint-import-resolver-webpack": "^0.11.1"
   }
 }

@@ -62,4 +62,8 @@ typings/
 
 .sonarlint
 
+# Now secret keys
 now-secrets.json
+
+# npm
+package-lock.json

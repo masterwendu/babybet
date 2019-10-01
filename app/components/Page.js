@@ -6,12 +6,19 @@ import { Baby as BabyIcon } from 'styled-icons/fa-solid'
 import Head from 'next/head'
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  html, body {
     margin: 0;
     padding: 0;
+    background: black;
+    color: white;
+    @media (prefers-color-scheme: light) {
+      background: white;
+      color: black;
+    }
+
   }
   a, a:visited, a:active {
-    color: white;
+    color: inherit;
   }
 
   label {
@@ -23,22 +30,18 @@ const GlobalStyle = createGlobalStyle`
     color: white;
     background: black;
     padding: 5px;
+
     &::placeholder {
       color: #9b9b9b;
     }
     width: calc(100% - 12px);
-    &[type='checkbox'] {
+    &[type='checkbox'], &[type='radio'] {
       width: auto;
       &:focus {
         box-shadow: none;
       }
     }
-    &[type='radio'] {
-      width: auto;
-      &:focus {
-        box-shadow: none;
-      }
-    }
+    
     transition: box-shadow 0.3s;
     outline: none;
 
@@ -49,6 +52,16 @@ const GlobalStyle = createGlobalStyle`
 
     &.copyUrlInput {
       width: calc(100% - 64px);
+    }
+
+    @media (prefers-color-scheme: light) {
+      background: white;
+      color: black;
+      border-color: #222;
+      &:focus {
+        border-color: #222;
+        box-shadow: 0px 0px 6px 3px #999;
+      }
     }
   }
 
@@ -66,7 +79,7 @@ const GlobalStyle = createGlobalStyle`
     &:hover {
       box-shadow: 1px 1px 12px 6px #cac1c1;
     }
-    &:disabled, &[disabled] {
+    &:disabled {
       background: grey;
       cursor: not-allowed;
       box-shadow: none;
@@ -75,6 +88,13 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
+    @media (prefers-color-scheme: light) {
+      background: white;
+      color: black;
+      &:disabled {
+        background: #ecf0f1;
+      }
+    }
 
     &.copyUrlButton {
       width: 50px;
@@ -93,6 +113,8 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: flex-start;
     width: calc(100% - 64px);
+    color: inherit;
+    background-color: inherit;
 
     .copyUrl {
       display: inline-block;
@@ -104,15 +126,23 @@ const GlobalStyle = createGlobalStyle`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      border-color: inherit;
+      margin-right: 10px;
+      color: inherit;
+      background-color: inherit;
+      a {
+        color: inherit;
+        background-color: inherit;
+      }
     }
   }
 `
 
 const Wrapper = styled.div`
   text-align: center;
-  background: black;
-  color: white;
-  position: absolute;
+  background: inherit;
+  color: inherit;
+  position: inherit;
   width: 100%;
   min-height: 100%;
 
@@ -124,6 +154,8 @@ const Wrapper = styled.div`
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
+    color: inherit;
+    background-color: inherit;
   }
 `
 const Content = styled.div`

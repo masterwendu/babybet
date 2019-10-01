@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "now dev"
+  },
+  "dependencies": {
+    "now": "^16.3.0"
+  }
+}

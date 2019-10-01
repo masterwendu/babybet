@@ -14,7 +14,11 @@ test the app on [beta.babybet.de](https://beta.babybet.de)
   - send user his/her bet
   - add possibility to edit bet with one time email password
 - a date for last chance to bet
-- Own babybet icon
+- Babybet styles guide
+  - base colors
+    - light / dark
+  - Font
+  - Own babybet icon (currently it is fontawesome)
 
 ## Development guide
 
@@ -46,3 +50,10 @@ Start working on the `pages` and `components` for making changes in the frontend
 To make changes in the API, start working on the `api/index.js`.
 
 *Happy Hacking :+1:*
+
+# Contributors
+
+- [masterwendu](https://github.com/masterwendu)
+- [brunojppb](https://github.com/brunojppb)
+- [burrelle](https://github.com/burrelle)
+- [LOLdevelopr](https://github.com/LOLdevelopr)

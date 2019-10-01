@@ -17,6 +17,10 @@ test the app on [beta.babybet.de](https://beta.babybet.de)
 - Own babybet icon
 
 ## Development guide
+
+- install volta from volta.sh
+- when you now open the project the node and yarn version should be selected automatically for a consistent dev environment
+
 This is monorepo with api server and frontend separated as `api`and `api`.
 In order to start development here follow the following steps
 - fork and clone the repo
